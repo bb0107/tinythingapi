@@ -11,7 +11,7 @@
 - Easy-Setup Script to create the necessary database and tables
 
 ## Introduction
-tinyhingapi provides an API to read and write data from e.g. IOT devices like an Arduino. The Web-GUI lets you create, edit or remove channels and sub-channels quickly. Authentification ensures access only for authorized users.
+tinyhingapi provides an API to read and write data from e.g. IOT devices like an Arduino or an ESP8266. The Web-GUI lets you create, edit or remove channels and sub-channels quickly. Authentification ensures access only for authorized users.
 
 ## Usage
 
