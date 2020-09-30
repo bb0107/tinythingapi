@@ -1,6 +1,6 @@
 # [tinythingapi](https://github.com/Icenbeis/tinythingapi)
 
-[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 ## Requirements
 - PHP5 or higher
@@ -20,6 +20,10 @@ tinyhingapi provides an API to read and write data from e.g. IOT devices like an
 Check https://github.com/Icenbeis/tinythingapi/example for implementation in PHP or on Arduino (e.g. WEMOS D1 mini, ESP8266 or similar).
 
 ## Usage
+
+## License
+This project - except of 3rd party libraries (see next chapter) -  is subject to the terms of the Mozilla Public License, v. 2.0. Please refer to https://github.com/Icenbeis/tinythingapi/blob/master/LICENSE for further details.
+
 
 ## 3rd Party Libraries
 
