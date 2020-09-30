@@ -6,12 +6,13 @@
 - MySQL compatible database, e.g. MariaDB
 
 ## Features
+- create mutiple channels and sub-channels to post e.g. sensor data from IOT devices
 - hash and time-based read / write authentication
 - Web-GUI for administration and data visualization
 - Easy-Setup Script to create the necessary database and tables
 
 ## Introduction
-tinyhingapi provides an API to read and write data from e.g. IOT devices like an Arduino or an ESP8266. The Web-GUI lets you create, edit or remove channels and sub-channels quickly. Authentification ensures access only for authorized users.
+tinyhingapi provides an API to read and write data from e.g. IOT devices like an Arduino or an ESP8266. The Web-GUI lets you create, edit or remove channels and sub-channels quickly. Authentification ensures access only for authorized users. To ensure integrity of sent or requested data, all information are hashed with the current timestamp and the individual read- or write key which is only known to the channel owner.
 
 ## Usage
 
