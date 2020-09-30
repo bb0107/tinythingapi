@@ -20,6 +20,14 @@ tinyhingapi provides an API to read and write data from e.g. IOT devices like an
 Check https://github.com/Icenbeis/tinythingapi/example for implementation in PHP or on Arduino (e.g. WEMOS D1 mini, ESP8266 or similar).
 
 ## Usage
+- For experimental purpose, XAMPP is highly recommened as all-in-one package (PHP, APACHE Web-Server, MariaDB Database). Project was tested and developed with XAMPP 7.2.33.
+https://www.apachefriends.org/download.html
+- Clone code to htdocs folder
+- Make sure Apache and MySQL Server are both running
+- Update /config/config.php with your database parameters
+- Got to /install/install.php and follow the instructions
+- got to /public/admin/index.php and check whether the Web-GUI is working
+- Update /example/WRITE.php or /example/READ.php with the actual API address and open the files in a Browser
 
 ## License
 This project - except of 3rd party libraries (see next chapter) -  is subject to the terms of the Mozilla Public License, v. 2.0. Please refer to https://github.com/Icenbeis/tinythingapi/blob/master/LICENSE for further details.
