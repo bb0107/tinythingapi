@@ -1,31 +1,36 @@
-
 <?php
-// A sample PHP Script to POST data using cURL
-// Data in JSON format
- 
-$API_KEY = '16c32d55eeae7645';
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+/****************************************************
+The example removes all data channel
+****************************************************/
+
+//Configuration.
+$API_KEY = 'd68f7a000446a373';; //get your key e.g. from admin panel
+$CHANNEL_NAME = 'channel1'; //make sure the channel is available e.g. via admin panel
+$API_URL = 'http://localhost/REST_API/CODE/public/API/' . $CHANNEL_NAME;
+
+//Get current UNIX timestamp.
 $_TIME = time();
 
+//Create header.
 $header = array(
-    'channelname' => 'channel8',
+    'channelname' => $CHANNEL_NAME,
 	'timestamp' => $_TIME
 );
 
+//Convert header into json object.
 $header = json_encode($header);
 
 $HASH_INPUT = $header;
 
-print $HASH_INPUT;
-
-//print $HASH_INPUT;
-
+//Calculate Hash out of combined data.
 $hash = hash_hmac('sha256',$HASH_INPUT, $API_KEY, false);
-
-var_dump($hash);
  
-// Prepare new cURL resource
-$ch = curl_init('http://localhost/REST_API/public/API/channel8');
+// Prepare new cURL resource.
+$ch = curl_init($API_URL);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -42,19 +47,17 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
  
 // Submit the POST request
 $response = curl_exec($ch);
-
-  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-  $headers = substr($response, 0, $header_size);
-  $body = substr($response, $header_size);
-  
+$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+$headers = substr($response, 0, $header_size);
+$body = substr($response, $header_size);
 curl_close($ch);
 
-$headers = explode("\r\n", $headers); // The seperator used in the Response Header is CRLF (Aka. \r\n) 
-
-
+//Separate response header into array.
+$headers = explode("\r\n", $headers);
 $headers = array_filter($headers);
 
 $html = '';
+//Print response.
 foreach ($headers as &$value) {
 	
 	$teile = explode(": ", $value);

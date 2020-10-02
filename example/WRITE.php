@@ -1,10 +1,19 @@
-
 <?php
-// A sample PHP Script to POST data using cURL
-// Data in JSON format
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+/****************************************************
+The example writes random data into channel
+****************************************************/
  
-$API_KEY = 'd68f7a000446a373';
- 
+//Configuration.
+$API_KEY = 'd68f7a000446a373'; //get your key e.g. from admin panel
+$CHANNEL_NAME = 'channel1'; //make sure the channel is available e.g. via admin panel
+$ENTRY_COUNT = 2; //Number of entries to write.
+$API_URL = 'http://localhost/REST_API/CODE/public/API/' . $CHANNEL_NAME . '/' . $ENTRY_COUNT;
+
+//Create 2 random data entries for 3 subchannels.
 $body = array(
 	0 => array(
     'var0' => (rand(10, 30)/5),
@@ -18,52 +27,46 @@ $body = array(
 	'var3' => (rand(10, 30)/5))
 );
 
-var_dump(json_encode($body));
-//var_dump(implode(", ", array_keys($body[0])));
-//var_dump(implode(", :", array_keys($body[0])));
 
-/*
-		$sql = sprintf(
-		'INSERT INTO %s (%s) values (%s)',
-		'channel1',
-		implode(', ', array_keys($body[0])),
-		':' . implode(', :', array_keys($body[0]))
-		);
-		
-var_dump($sql);
-*/
 
+//Get current UNIX timestamp.
 $_TIME = time();
 
+//create header.
 $header = array(
-    'channelname' => 'channel1',
+    'channelname' => $CHANNEL_NAME,
     'subchannel' => 'all',
-	'count' => 2,
+	'count' => $ENTRY_COUNT,
 	'timestamp' => $_TIME
 );
 
-
+//Convert data into json object.
 $payload_JSON = json_encode($body);
-//$payload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload_JSON));
 
+//Convert header into json object.
 $header = json_encode($header);
 
+//Print Payload.
+var_dump($payload_JSON);
+
+//combine header and body into one string.
 $HASH_INPUT = $header . '.' . $payload_JSON;
 
 print $HASH_INPUT;
 
+//Calculate Hash out of combined data.
 $hash = hash_hmac('sha256',$HASH_INPUT,$API_KEY, false);
 
  
-// Prepare new cURL resource
-$ch = curl_init('http://localhost/REST_API/CODE/public/API/channel1/2');
+// Prepare new cURL resource.
+$ch = curl_init($API_URL);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload_JSON);
  
-// Set HTTP Header for POST request 
+// Set HTTP Header for POST request.
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	'x-auth-type: Signature',
 	'x-auth-alg: HS256',
@@ -72,21 +75,19 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Length: ' . strlen($payload_JSON))
 );
  
-// Submit the POST request
+// Submit the POST request.
 $response = curl_exec($ch);
-
-  $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-  $headers = substr($response, 0, $header_size);
-  $body = substr($response, $header_size);
-  
+$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+$headers = substr($response, 0, $header_size);
+$body = substr($response, $header_size);
 curl_close($ch);
 
-$headers = explode("\r\n", $headers); // The seperator used in the Response Header is CRLF (Aka. \r\n) 
-
-
+//Separate response header into array.
+$headers = explode("\r\n", $headers);
 $headers = array_filter($headers);
 
 $html = '';
+//Print response.
 foreach ($headers as &$value) {
 	
 	$teile = explode(": ", $value);
@@ -100,5 +101,5 @@ $html = '<ol>' . $html . '</ol>';
 
 header("Content-Type:text/html; charset=UTF-8");
 echo $html;
- 
+
 ?>
