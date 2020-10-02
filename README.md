@@ -17,7 +17,7 @@
 tinyhingapi provides an API to read and write data from e.g. IOT devices like an Arduino or an ESP8266. The Web-GUI lets you create, edit or remove channels and sub-channels quickly. Authentification ensures access only for authorized users. To ensure integrity of sent or requested data, all information are hashed with the current timestamp and the individual read- or write key which is only known to the channel owner.
 
 ## Examples
-Check https://github.com/bb0107/tinythingapi/example for implementation in PHP or on Arduino (e.g. WEMOS D1 mini, ESP8266 or similar).
+Check https://github.com/bb0107/tinythingapi/tree/master/example for implementation in PHP or on Arduino (e.g. WEMOS D1 mini, ESP8266 or similar).
 
 ## Usage
 - For experimental purpose, XAMPP is highly recommened as all-in-one package (PHP, APACHE Web-Server, MariaDB Database). Project was tested and developed with XAMPP 7.2.33.
